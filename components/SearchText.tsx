@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, Platform } from "react-native";
 import { useState } from "react";
 //import EditScreenInfo from "../components/EditScreenInfo";
 import { Feather } from "@expo/vector-icons";
-import { Text, View } from "./Themed";
+import { View } from "./Themed";
 import useColorScheme from "../hooks/useColorScheme";
 import Colors from "../constants/Colors";
 
@@ -43,21 +43,17 @@ export function InputText() {
           value={text}
           placeholder={"Search Here"}
           placeholderTextColor={Colors[colorScheme].light}
-          maxLength={50}
         />
-        <Feather
-          name="mic"
-          size={24}
-          color={Colors[colorScheme].light}
-          style={styles.icon}
-        />
+        <Feather name="mic" size={24} color={Colors[colorScheme].light} />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    paddingBottom:10
+  },
   mainContainer: {
     flexDirection: "row",
     padding: 8,
@@ -70,6 +66,6 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 0.95,
-    marginLeft:5
+    marginLeft: 5,
   },
 });

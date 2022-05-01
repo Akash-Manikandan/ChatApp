@@ -5,18 +5,16 @@ import chatRooms from "../data/ChatRooms";
 import { InputText } from "../components/SearchText";
 import ChatListItem from "../components/ChatListItem";
 
-export default function Chats({
-  navigation,
-}: RootTabScreenProps<"TabOne">) {
-
+export default function Chats({ navigation }: RootTabScreenProps<"TabOne">) {
   return (
     <View style={styles.container}>
       <InputText />
-      <FlatList 
-      data={chatRooms}
-      renderItem={({item}) => <ChatListItem chatRoom={item}/>}
-      keyExtractor={(item) => item.id}
-    />
+      
+      <FlatList
+        data={chatRooms}
+        renderItem={({ item }) => <ChatListItem chatRoom={item} />}
+        keyExtractor={(item) => item.id}
+      />
     </View>
   );
 }

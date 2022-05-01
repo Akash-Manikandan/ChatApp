@@ -12,7 +12,7 @@ import { ColorSchemeName, Pressable } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import ModalScreen from "../screens/ModalScreen";
+import ChatRoom from "../screens/ChatRoom";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import Chats from "../screens/Chats";
 import TabTwoScreen from "../screens/TabTwoScreen";
@@ -38,10 +38,6 @@ export default function Navigation({
   );
 }
 
-/**
- * A root stack navigator is often used for displaying modals on top of all other content.
- * https://reactnavigation.org/docs/modal
- */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
@@ -67,16 +63,34 @@ function RootNavigator() {
         options={{ title: "Oops!" }}
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
+        <Stack.Screen
+          name="ChatRoom"
+          component={ChatRoom}
+          options={({ route }) => ({
+            title: route.params.name,
+            animation: "slide_from_right",
+            headerTitleStyle: {
+              fontFamily: "Poppins-SemiBold",
+            },
+          })}
+        />
+      </Stack.Group>
+      <Stack.Group screenOptions={{ presentation: "modal" }}>
+        <Stack.Screen
+          name="Modal"
+          component={TabTwoScreen}
+          options={{
+            animation: "fade_from_bottom",
+            headerTitleStyle: {
+              fontFamily: "Poppins-SemiBold",
+            },
+          }}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
 }
 
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
@@ -99,9 +113,9 @@ function BottomTabNavigator() {
         tabBarLabelStyle: {
           fontFamily: "Poppins-Regular",
         },
-        headerTitleStyle:{
-          fontFamily:"Poppins-SemiBold"
-        }
+        headerTitleStyle: {
+          fontFamily: "Poppins-SemiBold",
+        },
       }}
     >
       <BottomTab.Screen

@@ -1,6 +1,5 @@
 //@ts-nocheck
 import { Text, View } from "../Themed";
-//import { ChatRoom } from "../../types";
 import styles from "./style";
 import { Image, TouchableOpacity } from "react-native";
 import moment from "moment";
@@ -12,7 +11,7 @@ const ChatListItem = (props) => {
   const navigation = useNavigation();
 
   const onClick = () => {
-    navigation.navigate("ChatRoom", { id: chatRoom.id, name: user.name });
+    navigation.navigate("ChatRoom", { id: user.id, name: user.name,image: user.imageUri });
   };
 
   return (

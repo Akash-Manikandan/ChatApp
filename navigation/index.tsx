@@ -8,8 +8,13 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { ColorSchemeName, Pressable } from "react-native";
-
+import {
+  ColorSchemeName,
+  Image,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ChatRoom from "../screens/ChatRoom";
@@ -22,6 +27,8 @@ import {
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import { View } from "../components/Themed";
+import CameraScreen from "../screens/CameraScreen";
 
 export default function Navigation({
   colorScheme,
@@ -41,7 +48,8 @@ export default function Navigation({
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
-  //const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme();
+  const navigation = useNavigation();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -72,6 +80,77 @@ function RootNavigator() {
             headerTitleStyle: {
               fontFamily: "Poppins-SemiBold",
             },
+            headerRight: () => {
+              return (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                    width: 100,
+                  }}
+                >
+                  <Ionicons
+                    name="call-outline"
+                    size={24}
+                    color={Colors[colorScheme].text}
+                  />
+                  <Feather
+                    name="video"
+                    size={24}
+                    color={Colors[colorScheme].text}
+                  />
+                </View>
+              );
+            },
+            headerStyle: {
+              backgroundColor: Colors[colorScheme].background,
+            },
+            headerShadowVisible: true,
+            headerLeft: () => {
+              return (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: "column",
+                      justifyContent: "space-around",
+                      paddingRight: 10,
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("Root")}
+                      //style={{ padding: 8, paddingRight: 10 }}
+                    >
+                      <Ionicons
+                        name="ios-arrow-back-sharp"
+                        size={25}
+                        color={Colors[colorScheme].text}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "column",
+                      justifyContent: "space-around",
+                      paddingRight: 10,
+                    }}
+                  >
+                    <Image
+                      source={{ uri: route.params.image }}
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 50,
+                      }}
+                    />
+                  </View>
+                </View>
+              );
+            },
           })}
         />
       </Stack.Group>
@@ -85,6 +164,19 @@ function RootNavigator() {
               fontFamily: "Poppins-SemiBold",
             },
           }}
+        />
+      </Stack.Group>
+      <Stack.Group screenOptions={{ presentation: "modal" }}>
+        <Stack.Screen
+          name="Status"
+          component={ChatRoom}
+          options={({ route }) => ({
+            title: route.params.name,
+            headerTitleStyle: {
+              fontFamily: "Poppins-SemiBold",
+            },
+            animation: "slide_from_bottom",
+          })}
         />
       </Stack.Group>
     </Stack.Navigator>
@@ -120,12 +212,13 @@ function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name="Camera"
-        component={TabTwoScreen}
+        component={CameraScreen}
         options={{
           title: "Camera",
           tabBarIcon: ({ color }) => (
             <Feather name="camera" size={24} color={color} />
           ),
+          
         }}
       />
       <BottomTab.Screen

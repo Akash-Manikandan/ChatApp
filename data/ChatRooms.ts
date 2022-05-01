@@ -32,7 +32,7 @@ export default [
       },
       {
         id: "u3",
-        name: "Daniil",
+        name: "Melba",
         imageUri:
           "https://www.w3schools.com/howto/img_avatar2.png",
       },
@@ -142,7 +142,7 @@ export default [
       },
       {
         id: "u8",
-        name: "Borja",
+        name: "Bora",
         imageUri:
           "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000",
       },
@@ -186,7 +186,7 @@ export default [
       },
       {
         id: "u10",
-        name: "Angelina Jolie",
+        name: "Akash",
         imageUri:
           "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000",
       },
@@ -207,8 +207,8 @@ export default [
           "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000",
       },
       {
-        id: "u2",
-        name: "Lukas",
+        id: "u11",
+        name: "Charlie",
         imageUri:
           "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000",
       },

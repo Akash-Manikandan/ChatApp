@@ -16,41 +16,49 @@ export default function Chats({ navigation }: RootTabScreenProps<"TabOne">) {
       name: item.users[1].name,
     });
   };
+  const onClickAdd = () => {
+    navigator.navigate("Status", {
+      id: "u0",
+      name: "Akash",
+    });
+  }
+  const Add = () => {
+    return (
+      <TouchableOpacity onPress={onClickAdd}>
+      <View style={styles.avatarContainer}>
+        <Ionicons
+          name="ios-add-circle-outline"
+          size={50}
+          color="#bfbfbf"
+          style={styles.avatar}
+        />
+        <Text style={styles.avatarText}>Add</Text>
+      </View>
+      </TouchableOpacity>
+    );
+  };
+  const Status = ({ props }) => {
+    const item = props;
+    return (
+      <TouchableOpacity onPress={() => onClick(item)}>
+        <View style={styles.avatarContainer}>
+          <Image
+            source={{ uri: item.users[1].imageUri }}
+            style={styles.avatar}
+          />
+          <Text style={styles.avatarText}>{item.users[1].name}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
   return (
     <View style={styles.container}>
       <InputText />
       <View style={styles.flatScroll}>
-        {/*<Ionicons name="ios-add-circle-outline" size={24} color="black" />*/}
         <FlatList
           data={chatRooms}
-          ListHeaderComponent={() => {
-            return (
-              <View style={styles.avatarContainer}>
-                <Ionicons
-                  name="ios-add-circle-outline"
-                  size={50}
-                  color="#bfbfbf"
-                  style={styles.avatar}
-                />
-                <Text style={styles.avatarText}>
-                  Add
-                </Text>
-              </View>
-            );
-          }}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity onPress={() => onClick(item)}>
-                <View style={styles.avatarContainer}>
-                  <Image
-                    source={{ uri: item.users[1].imageUri }}
-                    style={styles.avatar}
-                  />
-                  <Text style={styles.avatarText}>{item.users[1].name}</Text>
-                </View>
-              </TouchableOpacity>
-            );
-          }}
+          ListHeaderComponent={() => <Add />}
+          renderItem={({ item }) => <Status props={item} />}
           keyExtractor={(item) => item.id}
           horizontal
         />

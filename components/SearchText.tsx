@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { StyleSheet, TextInput, Platform } from "react-native";
+import { StyleSheet, TextInput, Platform,KeyboardAvoidingView } from "react-native";
 import { useState } from "react";
 //import EditScreenInfo from "../components/EditScreenInfo";
 import { Feather } from "@expo/vector-icons";
@@ -11,6 +11,7 @@ export function InputText() {
   const [text, onChangeText] = useState("");
   const colorScheme = useColorScheme();
   return (
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
     <View
       style={[
         styles.container,
@@ -47,6 +48,7 @@ export function InputText() {
         <Feather name="mic" size={24} color={Colors[colorScheme].light} />
       </View>
     </View>
+    </KeyboardAvoidingView>
   );
 }
 

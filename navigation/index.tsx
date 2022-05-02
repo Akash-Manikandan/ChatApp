@@ -245,12 +245,11 @@ function BottomTabNavigator() {
           ),
         })}
       />
-
       <BottomTab.Screen
-        name="Calls"
+        name="Contacts"
         component={TabTwoScreen}
         options={{
-          title: "Calls",
+          title: "Contacts",
           tabBarIcon: ({ color }) => (
             <Ionicons name="call-outline" size={24} color={color} />
           ),

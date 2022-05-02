@@ -26,17 +26,23 @@ const InputBox = () => {
           <TextInput
             placeholder={"Send Message"}
             placeholderTextColor={Colors[colorScheme].text}
-            style={[styles.textInput, { color: Colors[colorScheme].text }]}
-            multiline
+            style={[
+              styles.textInput,
+              Platform.OS === "web" && { outlineWidth: 0 },
+              { color: "#007665" },
+            ]}
+            multiline={true}
             value={message}
             onChangeText={setMessage}
+            placeholderTextColor={Colors[colorScheme].light}
+            selectionColor={"#f46a4e"}
           />
           <View
             lightColor="#f6f6f6"
             darkColor="#202c33"
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Feather name="send" size={22} color="grey" />
+            <Feather name="send" size={22} color="grey" style={styles.icon} />
             {!message && (
               <Feather
                 name="camera"
@@ -47,8 +53,17 @@ const InputBox = () => {
             )}
           </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <Feather name="mic" size={22} color="white" />
+        <View
+          style={[
+            styles.buttonContainer,
+            { backgroundColor: Colors[colorScheme].chatTheme },
+          ]}
+        >
+          <Feather
+            name="mic"
+            size={22}
+            color={Colors[colorScheme].background}
+          />
         </View>
       </View>
     </KeyboardAvoidingView>

@@ -53,7 +53,7 @@ export default {
     },
     {
       id: "m5",
-      content: "How is your uni going?",
+      content: "How is your life going?",
       createdAt: "2020-10-03T14:51:00.000Z",
       user: {
         id: "u1",

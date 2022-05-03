@@ -1,14 +1,16 @@
 //@ts-nocheck
 import { useState, useEffect } from "react";
-import { StyleSheet, TouchableOpacity, Switch } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
 import { View, Text } from "../components/Themed";
+import { useIsFocused } from "@react-navigation/native";
+let camera: Camera;
 
 export default function CameraScreen() {
+  const isFocused = useIsFocused();
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [isEnabled, setIsEnabled] = useState(true);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -24,9 +26,14 @@ export default function CameraScreen() {
   }
   return (
     <View style={styles.container}>
-      <Switch onValueChange={toggleSwitch} value={isEnabled} />
-      {isEnabled ? (
-        <Camera style={styles.camera} type={type} >
+      {isFocused ? (
+        <Camera
+          style={styles.camera}
+          type={type}
+          ref={(r) => {
+            camera = r;
+          }}
+        >
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.button}

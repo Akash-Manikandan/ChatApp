@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { StyleSheet, FlatList, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, FlatList, Image, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
@@ -21,26 +21,32 @@ export default function Chats({ navigation }: RootTabScreenProps<"TabOne">) {
       id: "u0",
       name: "Akash",
     });
-  }
+  };
   const Add = () => {
     return (
-      <TouchableOpacity onPress={onClickAdd}>
-      <View style={styles.avatarContainer}>
-        <Ionicons
-          name="ios-add-circle-outline"
-          size={50}
-          color="#bfbfbf"
-          style={styles.avatar}
-        />
-        <Text style={styles.avatarText}>Add</Text>
-      </View>
-      </TouchableOpacity>
+      <Pressable
+        onPress={onClickAdd}
+        style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
+      >
+        <View style={styles.avatarContainer}>
+          <Ionicons
+            name="ios-add-circle-outline"
+            size={50}
+            color="#bfbfbf"
+            style={styles.avatar}
+          />
+          <Text style={styles.avatarText}>Add</Text>
+        </View>
+      </Pressable>
     );
   };
   const Status = ({ props }) => {
     const item = props;
     return (
-      <TouchableOpacity onPress={() => onClick(item)}>
+      <Pressable
+        onPress={() => onClick(item)}
+        style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
+      >
         <View style={styles.avatarContainer}>
           <Image
             source={{ uri: item.users[1].imageUri }}
@@ -48,7 +54,7 @@ export default function Chats({ navigation }: RootTabScreenProps<"TabOne">) {
           />
           <Text style={styles.avatarText}>{item.users[1].name}</Text>
         </View>
-      </TouchableOpacity>
+      </Pressable>
     );
   };
   return (

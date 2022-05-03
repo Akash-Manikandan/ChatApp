@@ -29,6 +29,7 @@ import {
 import LinkingConfiguration from "./LinkingConfiguration";
 import { View } from "../components/Themed";
 import CameraScreen from "../screens/CameraScreen";
+import ContactsList from "../screens/ContactsList";
 
 export default function Navigation({
   colorScheme,
@@ -79,6 +80,7 @@ function RootNavigator() {
             animation: "slide_from_right",
             headerTitleStyle: {
               fontFamily: "Poppins-SemiBold",
+              fontSize: 15,
             },
             headerRight: () => {
               return (
@@ -107,49 +109,53 @@ function RootNavigator() {
             },
             headerShadowVisible: true,
             headerLeft: () => {
-              return (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                  }}
-                >
+              if (route.params.image) {
+                return (
                   <View
                     style={{
-                      flexDirection: "column",
+                      flexDirection: "row",
                       justifyContent: "space-around",
-                      paddingRight: 10,
                     }}
                   >
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate("Root")}
-                      //style={{ padding: 8, paddingRight: 10 }}
-                    >
-                      <Ionicons
-                        name="ios-arrow-back-sharp"
-                        size={25}
-                        color={Colors[colorScheme].text}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: "column",
-                      justifyContent: "space-around",
-                      paddingRight: 10,
-                    }}
-                  >
-                    <Image
-                      source={{ uri: route.params.image }}
+                    <View
                       style={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: 50,
+                        flexDirection: "column",
+                        justifyContent: "space-around",
+                        paddingRight: 10,
                       }}
-                    />
+                    >
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate("Root")}
+                        //style={{ padding: 8, paddingRight: 10 }}
+                      >
+                        <Ionicons
+                          name="ios-arrow-back-sharp"
+                          size={25}
+                          color={Colors[colorScheme].text}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "column",
+                        justifyContent: "space-around",
+                        paddingRight: 10,
+                      }}
+                    >
+                      <Image
+                        source={{ uri: route.params.image }}
+                        style={{
+                          width: 40,
+                          height: 40,
+                          borderRadius: 50,
+                        }}
+                      />
+                    </View>
                   </View>
-                </View>
-              );
+                );
+              } else {
+                return null;
+              }
             },
           })}
         />
@@ -247,7 +253,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Contacts"
-        component={TabTwoScreen}
+        component={ContactsList}
         options={{
           title: "Contacts",
           tabBarIcon: ({ color }) => (

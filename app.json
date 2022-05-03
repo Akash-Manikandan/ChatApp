@@ -29,6 +29,8 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    }
+    },
+    "description": "ChatApp for general use",
+    "githubUrl": "https://github.com/Akash-Manikandan/ChatApp"
   }
 }

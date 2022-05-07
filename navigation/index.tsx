@@ -217,16 +217,6 @@ function BottomTabNavigator() {
       }}
     >
       <BottomTab.Screen
-        name="Camera"
-        component={CameraScreen}
-        options={{
-          title: "Camera",
-          tabBarIcon: ({ color }) => (
-            <Feather name="camera" size={24} color={color} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
         name="Chats"
         component={Chats}
         options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
@@ -258,6 +248,16 @@ function BottomTabNavigator() {
           title: "Contacts",
           tabBarIcon: ({ color }) => (
             <Ionicons name="call-outline" size={24} color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Camera"
+        component={CameraScreen}
+        options={{
+          title: "Camera",
+          tabBarIcon: ({ color }) => (
+            <Feather name="camera" size={24} color={color} />
           ),
         }}
       />

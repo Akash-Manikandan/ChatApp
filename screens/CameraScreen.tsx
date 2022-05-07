@@ -4,6 +4,7 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
 import { View, Text } from "../components/Themed";
 import { useIsFocused } from "@react-navigation/native";
+import FrontSplashScreen from "./FrontSplashScreen";
 let camera: Camera;
 
 export default function CameraScreen() {

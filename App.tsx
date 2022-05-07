@@ -1,10 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
+import FrontSplashScreen from "./screens/FrontSplashScreen";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
+import { useEffect, useState } from "react";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -13,8 +14,11 @@ export default function App() {
     "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
     "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
   });
-  if (!isLoadingComplete || !fontsLoaded) {
-    return <AppLoading />;
+
+  // Set the initial count to 0
+
+  if (!isLoadingComplete && !fontsLoaded) {
+    return <FrontSplashScreen />;
   } else {
     return (
       <SafeAreaProvider>

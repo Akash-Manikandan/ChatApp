@@ -7,8 +7,11 @@ import chatRooms from "../data/ChatRooms";
 import { InputText } from "../components/SearchText";
 import ChatListItem from "../components/ChatListItem";
 import { useNavigation } from "@react-navigation/native";
+import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
 
 export default function Chats({ navigation }: RootTabScreenProps<"TabOne">) {
+  const colorScheme = useColorScheme();
   const navigator = useNavigation();
   const onClick = (item) => {
     navigator.navigate("Status", {
@@ -60,7 +63,14 @@ export default function Chats({ navigation }: RootTabScreenProps<"TabOne">) {
   return (
     <View style={styles.container}>
       <InputText />
-      <View style={styles.flatScroll}>
+      <View
+        style={[
+          styles.flatScroll,
+          {
+            borderBottomColor: Colors[colorScheme].tint,
+          },
+        ]}
+      >
         <FlatList
           data={chatRooms}
           ListHeaderComponent={() => <Add />}
@@ -95,8 +105,9 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   flatScroll: {
-    padding: 5,
+    padding: 3,
     flexDirection: "column",
+    borderBottomWidth: 0.5,
   },
   avatarText: {
     padding: 5,

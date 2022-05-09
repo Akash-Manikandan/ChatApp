@@ -259,6 +259,7 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <Feather name="camera" size={24} color={color} />
           ),
+          headerShown: false,
         }}
       />
       <BottomTab.Screen

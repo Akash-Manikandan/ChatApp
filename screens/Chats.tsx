@@ -77,6 +77,8 @@ export default function Chats({ navigation }: RootTabScreenProps<"TabOne">) {
           renderItem={({ item }) => <Status props={item} />}
           keyExtractor={(item) => item.id}
           horizontal
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
         />
       </View>
       <FlatList

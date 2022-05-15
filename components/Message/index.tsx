@@ -127,7 +127,7 @@ export default function Message() {
         data={Chats}
         renderItem={({ item }) => <Bubble props={item} />}
         keyExtractor={(item) => item.id}
-        onLayout={() => flatListRef.current.scrollToEnd({ animated: true })}
+        onLayout={() => flatListRef.current.scrollToEnd({ animated: false })}
       />
     </View>
   );

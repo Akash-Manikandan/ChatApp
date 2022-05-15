@@ -4,7 +4,7 @@ import InputBox from "../components/InputBox";
 import { View } from "../components/Themed";
 import Message from "../components/Message";
 import useColorScheme from "../hooks/useColorScheme";
-import Colors from "../constants/Colors";
+
 export default function ChatRoom() {
   const colorScheme = useColorScheme();
   return (
@@ -14,7 +14,7 @@ export default function ChatRoom() {
         style={[
           styles.inputContainer,
           {
-            borderTopColor: Colors[colorScheme].tint,
+            borderTopColor: (colorScheme==='light')?'#D0ECE8':'#9f85fe'
           },
         ]}
       >

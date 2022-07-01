@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   input: {
-    flex: 0.95,
+    flex: 1,
     marginLeft: 5,
   },
 });

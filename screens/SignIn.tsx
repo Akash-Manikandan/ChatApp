@@ -12,15 +12,48 @@ import { Fumi } from "react-native-textinput-effects";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import useColorScheme from "../hooks/useColorScheme";
 import Colors from "../constants/Colors";
+import axios from "axios";
 
-function SignIn() {
+function SignIn({ navigation }) {
   const colorScheme = useColorScheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [value, setValue] = useState({});
+  const [disable, setDisable] = useState(false);
+  const headers = {
+    "Content-Type": "application/json; charset=utf-8",
+    "Access-Control-Allow-Origin": "*",
+  };
+  async function auth() {
+    setDisable(true);
+    await axios
+      .post(
+        "https://first-nest.vercel.app/auth/signin",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers,
+        }
+      )
+      .then(function (response) {
+        console.log(response.data);
+        setValue(response.data);
+        setDisable(false);
+        navigation.replace("Root");
+      })
+      .catch(function (error) {
+        console.log(error);
+        setDisable(false);
+      });
+  }
   function submit() {
     console.log(email + " " + password);
     setEmail("");
     setPassword("");
+    //navigation.navigate("Root");
+    navigation.replace("Root");
   }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -77,10 +110,14 @@ function SignIn() {
         </View>
 
         <View style={styles.buttonContainer}>
-          <Pressable onPress={submit} style={styles.button}>
+          <Pressable onPress={auth} disabled={disable}>
             <Text
               style={[
-                { backgroundColor: Colors[colorScheme].tint },
+                {
+                  backgroundColor: !disable
+                    ? Colors[colorScheme].tint
+                    : Colors[colorScheme].backgroundInput,
+                },
                 styles.buttonText,
               ]}
             >
@@ -106,6 +143,8 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 0.4,
+    borderRadius: 15,
+    fontFamily: "Poppins-Regular",
   },
   buttonContainer: {
     padding: 20,
@@ -113,7 +152,8 @@ const styles = StyleSheet.create({
   buttonText: {
     padding: 15,
     textAlign: "center",
-    borderRadius: 10,
+    borderRadius: 15,
+    fontFamily: "Poppins-Regular",
   },
 });
 

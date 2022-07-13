@@ -43,44 +43,19 @@ export default function Navigation({
       linking={LinkingConfiguration}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
-      <NoAuth />
+      <RootNavigator /> 
     </NavigationContainer>
   );
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-function NoAuth() {
-  const colorScheme = useColorScheme();
-  const navigation = useNavigation();
 
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          shadowOpacity: 0,
-          elevation: 0,
-        },
-        headerShadowVisible: false,
-      }}
-    >
-      <Stack.Screen
-        name="Root"
-        component={TabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: "Oops!" }}
-      />
-    </Stack.Navigator>
-  );
-}
 function RootNavigator() {
   const colorScheme = useColorScheme();
   const navigation = useNavigation();
   return (
     <Stack.Navigator
+      initialRouteName="Home"
       screenOptions={{
         headerStyle: {
           shadowOpacity: 0,
@@ -90,10 +65,16 @@ function RootNavigator() {
       }}
     >
       <Stack.Screen
+        name="Home"
+        component={TabNavigator}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
+
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
@@ -272,6 +253,8 @@ function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Chats"
+      backBehavior="order"
+      
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
         headerStyle: {

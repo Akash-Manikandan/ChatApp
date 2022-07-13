@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Feather, Ionicons } from "@expo/vector-icons";
+import { Feather, Ionicons, Octicons, AntDesign } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
@@ -30,6 +30,8 @@ import LinkingConfiguration from "./LinkingConfiguration";
 import { View } from "../components/Themed";
 import CameraScreen from "../screens/CameraScreen";
 import ContactsList from "../screens/ContactsList";
+import SignIn from "../screens/SignIn";
+import SignUp from "../screens/SignUp";
 
 export default function Navigation({
   colorScheme,
@@ -41,13 +43,39 @@ export default function Navigation({
       linking={LinkingConfiguration}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
-      <RootNavigator />
+      <NoAuth />
     </NavigationContainer>
   );
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+function NoAuth() {
+  const colorScheme = useColorScheme();
+  const navigation = useNavigation();
 
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          shadowOpacity: 0,
+          elevation: 0,
+        },
+        headerShadowVisible: false,
+      }}
+    >
+      <Stack.Screen
+        name="Root"
+        component={TabNavigator}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="NotFound"
+        component={NotFoundScreen}
+        options={{ title: "Oops!" }}
+      />
+    </Stack.Navigator>
+  );
+}
 function RootNavigator() {
   const colorScheme = useColorScheme();
   const navigation = useNavigation();
@@ -191,6 +219,53 @@ function RootNavigator() {
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
+function TabNavigator() {
+  const colorScheme = useColorScheme();
+  return (
+    <BottomTab.Navigator
+      initialRouteName="SignIn"
+      screenOptions={{
+        tabBarActiveTintColor: Colors[colorScheme].tint,
+        headerStyle: {
+          backgroundColor: Colors[colorScheme].background,
+          shadowOpacity: 0,
+          elevation: 0,
+        },
+        tabBarStyle: {
+          backgroundColor: Colors[colorScheme].background,
+        },
+        headerShadowVisible: false,
+        tabBarLabelStyle: {
+          fontFamily: "Poppins-Regular",
+        },
+        headerTitleStyle: {
+          fontFamily: "Poppins-SemiBold",
+        },
+      }}
+    >
+      <BottomTab.Screen
+        name="SignIn"
+        component={SignIn}
+        options={{
+          title: "SignIn",
+          tabBarIcon: ({ color }) => (
+            <Octicons name="sign-in" size={24} color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{
+          title: "SignUp",
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="adduser" size={24} color={color} />
+          ),
+        }}
+      />
+    </BottomTab.Navigator>
+  );
+}
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
